@@ -13,7 +13,7 @@ Este projeto busca explorar os conceitos de criptografia, manipulação de bits 
 - Manipulação de bits e operações XOR
 - Compilador GCC
 ## Contexto acadêmico
-Projeto desenvolvido no contexto acadêmico da Pontifícia Universidade Católica de Campinas (PUC-Campinas) da matéria Projeto Integrador.
+Projeto desenvolvido no contexto acadêmico da Pontifícia Universidade Católica de Campinas (PUC-Campinas) da matéria Projeto Integrador referente ao 4 semestre.
 ## Colaboradores
 - Alexandre
 - Murilo
