@@ -37,7 +37,6 @@ void quarter_round(uint32_t *a, uint32_t *b, uint32_t *c, uint32_t *d)
     *b = rotl32(*b, 7);
 }
 
-// Converte 4 bytes em um numero de 32 bits
 uint32_t load32(const uint8_t *p)
 {
     return (uint32_t)p[0] |
@@ -46,7 +45,6 @@ uint32_t load32(const uint8_t *p)
            (uint32_t)p[3] << 24;
 }
 
-// Funcao principal do ChaCha20
 void chacha20(uint8_t *dados, size_t tamanho,
               const uint8_t chave[32], const uint8_t nonce[12])
 {
@@ -55,17 +53,17 @@ void chacha20(uint8_t *dados, size_t tamanho,
         0x79622d32, 0x6b206574
     };
 
-    // Adiciona a chave ao estado
+    
     for (int i = 0; i < 8; i++)
         estado[4 + i] = load32(chave + i * 4);
 
-    estado[12] = 1; // Contador
+    estado[12] = 1; 
 
-    // Adiciona o nonce
+  
     for (int i = 0; i < 3; i++)
         estado[13 + i] = load32(nonce + i * 4);
 
-    // Processa a mensagem em blocos de 64 bytes
+  
     for (size_t pos = 0; pos < tamanho; pos += 64)
     {
         uint32_t x[16];
@@ -73,7 +71,7 @@ void chacha20(uint8_t *dados, size_t tamanho,
         for (int i = 0; i < 16; i++)
             x[i] = estado[i];
 
-        // 20 rodadas do ChaCha20
+    
         for (int i = 0; i < 10; i++)
         {
             quarter_round(&x[0], &x[4], &x[8], &x[12]);
@@ -87,7 +85,7 @@ void chacha20(uint8_t *dados, size_t tamanho,
             quarter_round(&x[3], &x[4], &x[9], &x[14]);
         }
 
-        // Soma o estado original e aplica XOR
+
         for (int i = 0; i < 16; i++)
         {
             uint32_t resultado = x[i] + estado[i];
@@ -136,13 +134,13 @@ int main()
 
     fclose(random);
 
-    // Cifra a mensagem
+    
     chacha20((uint8_t *)mensagem, tamanho, chave, nonce);
 
     printf("\nMensagem cifrada (HEX): ");
     print_hex((uint8_t *)mensagem, tamanho);
 
-    // Salva o nonce e a mensagem cifrada
+  
     FILE *arquivo = fopen("mensagem.bin", "wb");
 
     if (arquivo == NULL)
